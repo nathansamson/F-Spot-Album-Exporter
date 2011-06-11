@@ -31,6 +31,11 @@ internal static class AddinXmlStringCatalog
         Catalog.GetString (@"Resize the image");
         Catalog.GetString (@"Editors");
 
+        // ../src/Extensions/Exporters/FSpot.Exporters.Album/Resources/AlbumExport.addin.xml
+        Catalog.GetString (@"Album Export");
+        Catalog.GetString (@"This extension allows you to export your photos a standalone HTML PhotoAlbum.");
+        Catalog.GetString (@"Export");
+
         // ../src/Extensions/Exporters/FSpot.Exporters.CD/Resources/CDExport.addin.xml
         Catalog.GetString (@"CD Export");
         Catalog.GetString (@"This extension allows you to burn your photos to CD.");

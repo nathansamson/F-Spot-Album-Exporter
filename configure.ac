@@ -366,6 +366,7 @@ src/Extensions/Editors/FSpot.Editors.Flip/Makefile
 src/Extensions/Editors/FSpot.Editors.Pixelate/Makefile
 src/Extensions/Editors/FSpot.Editors.Resize/Makefile
 src/Extensions/Exporters/Makefile
+src/Extensions/Exporters/FSpot.Exporters.Album/Makefile
 src/Extensions/Exporters/FSpot.Exporters.CD/Makefile
 src/Extensions/Exporters/FSpot.Exporters.Flickr/Makefile
 src/Extensions/Exporters/FSpot.Exporters.Gallery/Makefile
