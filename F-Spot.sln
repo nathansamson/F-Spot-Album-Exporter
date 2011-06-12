@@ -93,6 +93,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSpot.Exporters.Zip", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSpot.Exporters.Tabblo", "src\Extensions\Exporters\FSpot.Exporters.Tabblo\FSpot.Exporters.Tabblo.csproj", "{414E9813-E0A8-4BD4-8694-485F528518F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSpot.Exporters.Album", "src\Extensions\Exporters\FSpot.Exporters.Album\FSpot.Exporters.Album.csproj", "{F03D478E-F63C-4292-9F01-E75E0E43AF67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -312,6 +314,12 @@ Global
 		{E55F73E0-576A-4FE2-9108-E76960820AA3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E55F73E0-576A-4FE2-9108-E76960820AA3}.Submodule|Any CPU.ActiveCfg = Debug|Any CPU
 		{E55F73E0-576A-4FE2-9108-E76960820AA3}.Submodule|Any CPU.Build.0 = Debug|Any CPU
+		{F03D478E-F63C-4292-9F01-E75E0E43AF67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03D478E-F63C-4292-9F01-E75E0E43AF67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F03D478E-F63C-4292-9F01-E75E0E43AF67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F03D478E-F63C-4292-9F01-E75E0E43AF67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F03D478E-F63C-4292-9F01-E75E0E43AF67}.Submodule|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03D478E-F63C-4292-9F01-E75E0E43AF67}.Submodule|Any CPU.Build.0 = Debug|Any CPU
 		{FBA30EB0-05EB-446D-827D-D41EBF4B81E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FBA30EB0-05EB-446D-827D-D41EBF4B81E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBA30EB0-05EB-446D-827D-D41EBF4B81E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -368,6 +376,7 @@ Global
 		{BE981FC8-9B41-4336-815C-ECC365AE05D4} = {C9302C4A-B571-4F8E-8FFA-7B4C7DF8B3E3}
 		{4C9355A7-1797-4708-A1F2-FBCDB782D04D} = {C9302C4A-B571-4F8E-8FFA-7B4C7DF8B3E3}
 		{414E9813-E0A8-4BD4-8694-485F528518F5} = {C9302C4A-B571-4F8E-8FFA-7B4C7DF8B3E3}
+		{F03D478E-F63C-4292-9F01-E75E0E43AF67} = {C9302C4A-B571-4F8E-8FFA-7B4C7DF8B3E3}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = src\Clients\MainApp\MainApp.csproj
@@ -377,8 +386,9 @@ Global
 		$1.ResourceNamePolicy = FileName
 		$0.TextStylePolicy = $2
 		$2.FileWidth = 120
+		$2.TabWidth = 4
 		$2.RemoveTrailingWhitespace = True
-		$2.inheritsSet = VisualStudio
+		$2.inheritsSet = Mono
 		$2.inheritsScope = text/plain
 		$2.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $3
@@ -392,7 +402,8 @@ Global
 		$3.inheritsScope = text/x-csharp
 		$3.scope = text/x-csharp
 		$0.TextStylePolicy = $4
-		$4.inheritsSet = VisualStudio
+		$4.TabWidth = 4
+		$4.inheritsSet = Mono
 		$4.inheritsScope = text/plain
 		$4.scope = text/plain
 		$0.VersionControlPolicy = $5
@@ -402,6 +413,34 @@ Global
 		$6.MessageStyle = $7
 		$7.LineAlign = 0
 		$6.inheritsSet = Mono
+		$0.TextStylePolicy = $8
+		$8.inheritsSet = null
+		$8.scope = text/x-copying
+		$0.TextStylePolicy = $9
+		$9.inheritsSet = null
+		$9.scope = application/x-designer
+		$0.TextStylePolicy = $10
+		$10.inheritsSet = null
+		$10.scope = application/x-addin+xml
+		$0.XmlFormattingPolicy = $11
+		$11.inheritsSet = null
+		$11.scope = application/x-addin+xml
+		$0.TextStylePolicy = $12
+		$12.inheritsSet = null
+		$12.scope = application/xml
+		$0.XmlFormattingPolicy = $13
+		$13.inheritsSet = Mono
+		$13.inheritsScope = application/xml
+		$13.scope = application/xml
+		$0.TextStylePolicy = $14
+		$14.inheritsSet = null
+		$14.scope = text/html
+		$0.TextStylePolicy = $15
+		$15.inheritsSet = null
+		$15.scope = text/css
+		$0.TextStylePolicy = $16
+		$16.inheritsSet = null
+		$16.scope = application/javascript
 		version = 0.7.2
 		outputpath = .
 	EndGlobalSection

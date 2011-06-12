@@ -80,7 +80,6 @@
       <HintPath>..\..\..\..\lib\gio-sharp\gio\gio-sharp.dll</HintPath>
     </Reference>
     <Reference Include="Gnome.Keyring, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1a73e1bde00c9b66">
-      <Package>gnome-keyring-sharp-1.0</Package>
     </Reference>
   </ItemGroup>
   <ItemGroup>

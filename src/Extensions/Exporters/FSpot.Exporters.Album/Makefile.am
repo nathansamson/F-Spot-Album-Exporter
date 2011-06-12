@@ -5,7 +5,8 @@ INSTALL_DIR = $(EXTENSIONS_INSTALL_DIR)
 
 SOURCES = FSpot.Exporters.Album/AlbumExport.cs
 
-RESOURCES = Resources/AlbumExport.addin.xml \
-            Resources/album_exporter.ui
+RESOURCES =  \
+	Resources/album_exporter.ui \
+	Resources/AlbumExport.addin.xml
 
 include $(top_srcdir)/build/build.mk

@@ -97,7 +97,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="useScaleCheckButton">
+              <object class="GtkCheckButton" id="restrictMaxSizeCheckButton">
                 <property name="label" translatable="yes">Scale images to maximum image size</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -112,10 +112,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="scaleSpinButton">
+              <object class="GtkSpinButton" id="hqMaxSizeSpinButton">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">●</property>
+                <property name="adjustment">scaleSizeAdjustment</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -181,5 +182,11 @@
       <action-widget response="-6">button2</action-widget>
       <action-widget response="-5">button1</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkAdjustment" id="scaleSizeAdjustment">
+    <property name="upper">4000</property>
+    <property name="value">1920</property>
+    <property name="step_increment">100</property>
+    <property name="page_increment">10</property>
   </object>
 </interface>
