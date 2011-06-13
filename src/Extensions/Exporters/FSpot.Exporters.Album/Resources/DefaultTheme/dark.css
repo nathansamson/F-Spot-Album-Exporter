@@ -1,0 +1,33 @@
+body {
+	background-color: #3C3C3C;
+	color: #BBBBBB;
+}
+
+body > header h1 {
+	border-bottom-color: #BBBBBB;
+}
+
+.photolist article {
+	border-color: #BBBBBB;
+	background-color: #282828;
+}
+
+nav ol li {
+	border-color: #BBBBBB;
+}
+
+nav ol li:hover {
+	background-color: #222222;
+}
+
+.photolist article:hover {
+	background-color: #222222;
+}
+
+a {
+	color: #BBBBBB;
+}
+
+a:hover {
+	color: #DDDDDD;
+}

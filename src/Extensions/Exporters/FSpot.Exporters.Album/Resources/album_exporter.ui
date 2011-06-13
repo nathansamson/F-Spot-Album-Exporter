@@ -85,18 +85,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkTextView" id="descriptionTextView">
-                <property name="width_request">250</property>
-                <property name="height_request">100</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkCheckButton" id="restrictMaxSizeCheckButton">
                 <property name="label" translatable="yes">Scale images to maximum image size</property>
                 <property name="visible">True</property>
@@ -167,6 +155,29 @@
               </object>
               <packing>
                 <property name="top_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTextView" id="albumDescriptionTextView">
+                    <property name="width_request">250</property>
+                    <property name="height_request">100</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="wrap_mode">word</property>
+                    <property name="justification">fill</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
               </packing>
             </child>
           </object>

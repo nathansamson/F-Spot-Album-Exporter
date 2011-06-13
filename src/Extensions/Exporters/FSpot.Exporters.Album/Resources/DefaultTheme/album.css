@@ -1,0 +1,88 @@
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Helvetica, Verdana, sans-serif;
+
+	width: 960px;
+	position: absolute;
+	margin-left: 50%;
+	margin-right: 50%;
+	left: -480px;
+	padding-bottom: 1em;
+}
+
+body > header {
+	margin-bottom: 2em;
+	text-align: justify;
+}
+
+body > header h1 {
+	text-align: center;
+	border-bottom: dotted 1px transparent;
+	margin: 0.5em 0 0.2em 0;
+}
+
+nav ol {
+	margin: 1em 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+nav ol li {
+	display: inline-block;
+	border: solid 1px transparent;
+	border-radius: 0.5em;
+	margin: 0 1em;
+}
+
+nav ol li:first-child {
+	margin-left: 0;
+}
+
+nav ol li a {
+	display: block;
+	text-decoration: none;
+	
+	padding: 0.25em 1em;
+}
+
+.photolist article {
+	display: inline-block;
+	border: solid 1px transparent;
+	border-radius: 1em;
+		
+	text-align: center;
+	vertical-align: top;
+}
+
+.photolist article a {
+	display: block;
+	padding: 14px;
+	
+	width: 280px;
+	height: 280px;
+	line-height: 280px;
+}
+
+.photolist article img {
+	vertical-align: middle;
+}
+
+.photolist article:nth-child(3n + 1) {
+	margin: 10px 15px 10px 0;
+}
+
+.photolist article:nth-child(3n + 2) {
+	margin: 10px 0 10px 0;
+}
+
+.photolist article:nth-child(3n + 3) {
+	margin: 10px 0 10px 15px;
+}
+
+footer {
+	font-size: 0.8em;
+}

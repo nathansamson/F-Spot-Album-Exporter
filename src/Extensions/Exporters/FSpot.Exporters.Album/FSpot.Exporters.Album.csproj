@@ -67,6 +67,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\gio-sharp\gio\gio-sharp.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
@@ -90,5 +91,20 @@
     <EmbeddedResource Include="Resources\AlbumExport.addin.xml">
       <LogicalName>AlbumExport.addin.xml</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DefaultTheme\index.xsl">
+      <LogicalName>DefaultTheme.index.xsl</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DefaultTheme\album.css">
+      <LogicalName>DefaultTheme.album.css</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DefaultTheme\dark.css">
+      <LogicalName>DefaultTheme.dark.css</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DefaultTheme\page.xsl">
+      <LogicalName>DefaultTheme.page.xsl</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\DefaultTheme\" />
   </ItemGroup>
 </Project>

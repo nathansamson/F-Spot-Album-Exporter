@@ -59,12 +59,24 @@ namespace FSpot.Exporters.Album {
 			public bool RestrictHQSize {
 				get { return restrict_hq_size; }
 			}
+
+			private string title;
+			public string Title {
+				get { return title; }
+			}
+
+			private string description;
+			public string Description {
+				get { return description; }
+			}
 			
-			public ExportProperties(string path, bool restrict_hq_size, uint hq_size)
+			public ExportProperties(string path, bool restrict_hq_size, uint hq_size, string title, string description)
 			{
 				this.path = path;
 				this.restrict_hq_size = restrict_hq_size;
 				this.hq_size = hq_size;
+				this.title = title;
+				this.description = description;
 			}
 		}
 
@@ -102,6 +114,8 @@ namespace FSpot.Exporters.Album {
 			
 			dialog.Hide();
 
+			Gtk.Entry albumTitleEntry = new Gtk.Entry (builder.GetRawObject ("albumTitleEntry"));
+			Gtk.TextView albumDescriptionTextView = new Gtk.TextView (builder.GetRawObject ("albumDescriptionTextView"));
 			Gtk.FileChooserButton exportFileChooserButton = new Gtk.FileChooserButton (builder.GetRawObject ("exportDirectoryChooserButton"));
 			Gtk.CheckButton restrictMaxSizeCheckButton = new Gtk.CheckButton (builder.GetRawObject ("restrictMaxSizeCheckButton"));
 			uint hqMaxSize = 0;
@@ -111,7 +125,9 @@ namespace FSpot.Exporters.Album {
 			}
 
 			export_properties = new ExportProperties(exportFileChooserButton.Uri,
-			                                         restrictMaxSizeCheckButton.Active, hqMaxSize);
+			                                         restrictMaxSizeCheckButton.Active, hqMaxSize,
+			                                         albumTitleEntry.Text,
+			                                         albumDescriptionTextView.Buffer.Text);
 
 			System.Threading.Thread command_thread = new System.Threading.Thread (new System.Threading.ThreadStart (Export));
 			command_thread.Name = "Exporting Photos";
@@ -130,6 +146,167 @@ namespace FSpot.Exporters.Album {
 				System.Console.WriteLine ("Path does not exist: {0}", destBasePath.Path);
 			}
 
+			ExportHtml (destBasePath);
+			ExportPhotos (destBasePath);
+		}
+
+		private void ExportHtml(GLib.File destBasePath)
+		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetCallingAssembly ();
+
+			System.IO.StreamWriter inputStream = new System.IO.StreamWriter (new System.IO.MemoryStream ());
+			System.Xml.XmlTextWriter writer = new System.Xml.XmlTextWriter (inputStream);
+			writer.WriteStartDocument ();
+			writer.WriteStartElement ("fspot-album");
+
+			writer.WriteStartElement ("title");
+			writer.WriteString (export_properties.Title);
+			writer.WriteEndElement ();
+
+			writer.WriteStartElement ("description");
+			writer.WriteString (export_properties.Description);
+			writer.WriteEndElement ();
+
+			// Stylesheets should be generated from a .theme (resource) file
+			ExportCSSFile (destBasePath, assembly, "album.css", "DefaultTheme.album.css");
+			ExportCSSFile (destBasePath, assembly, "dark.css", "DefaultTheme.dark.css");
+			writer.WriteStartElement ("stylesheets");
+
+			writer.WriteStartElement ("stylesheet");
+			writer.WriteAttributeString ("href", "album.css");
+			writer.WriteEndElement ();
+
+			writer.WriteStartElement ("stylesheet");
+			writer.WriteAttributeString ("href", "dark.css");
+			writer.WriteEndElement ();
+
+			writer.WriteEndElement ();
+
+			writer.WriteStartElement ("photos");
+
+			for (int photo_index = 0; photo_index < selection.Count; photo_index++)
+			{
+				IPhoto photo = selection[photo_index];
+
+				writer.WriteStartElement ("photo");
+				writer.WriteStartAttribute ("filename");
+				string file_name = photo_index + System.IO.Path.GetExtension (photo.DefaultVersion.Filename);
+				writer.WriteString (file_name);
+				writer.WriteEndAttribute ();
+				writer.WriteEndElement ();
+			}
+
+			writer.WriteEndElement ();
+
+			writer.WriteEndElement ();
+			writer.WriteEndDocument ();
+			writer.Flush();
+			writer.BaseStream.Seek (0, SeekOrigin.Begin);
+
+			System.Xml.Xsl.XslTransform transform = new System.Xml.Xsl.XslTransform ();
+
+			System.Xml.XmlReader xslt = System.Xml.XmlReader.Create (assembly.GetManifestResourceStream ("DefaultTheme.index.xsl"));
+			transform.Load (xslt);
+
+			System.Xml.XPath.XPathDocument input = new System.Xml.XPath.XPathDocument (writer.BaseStream);
+			System.IO.Stream outputStream = new System.IO.FileStream (destBasePath.GetChild ("index.html").Path, System.IO.FileMode.Create);
+
+			System.Xml.Xsl.XsltArgumentList argumentList = new System.Xml.Xsl.XsltArgumentList ();
+			argumentList.AddParam ("createdByText", "", "Gallery Created By");
+			argumentList.AddParam ("createdByPackage", "", FSpot.Core.Defines.PACKAGE);
+			argumentList.AddParam ("createdByVersion", "", FSpot.Core.Defines.VERSION);
+
+			transform.Transform (input, argumentList, outputStream);
+			outputStream.Close ();
+
+
+
+			transform = new System.Xml.Xsl.XslTransform ();
+			
+			xslt = System.Xml.XmlReader.Create (assembly.GetManifestResourceStream ("DefaultTheme.page.xsl"));
+			transform.Load (xslt);
+			for (int photo_index = 0; photo_index < selection.Count; photo_index++)
+			{
+				IPhoto photo = selection[photo_index];
+
+				inputStream = new System.IO.StreamWriter (new System.IO.MemoryStream ());
+				writer = new System.Xml.XmlTextWriter (inputStream);
+				writer.WriteStartDocument ();
+				writer.WriteStartElement ("fspot-image");
+
+				writer.WriteStartElement ("fspot-album");
+
+				writer.WriteStartElement ("title");
+				writer.WriteString (export_properties.Title);
+				writer.WriteEndElement ();
+
+				writer.WriteStartElement ("description");
+				writer.WriteString (export_properties.Description);
+				writer.WriteEndElement ();
+
+				writer.WriteEndElement ();
+				
+				writer.WriteStartElement ("title");
+				writer.WriteString (photo.Name);
+				writer.WriteEndElement ();
+				
+				writer.WriteStartElement ("description");
+				writer.WriteString (photo.Description);
+				writer.WriteEndElement ();
+
+				writer.WriteStartElement ("filename");
+				writer.WriteString (photo_index + System.IO.Path.GetExtension (photo.DefaultVersion.Filename));
+				writer.WriteEndElement ();
+
+				if (photo_index > 0) {
+					writer.WriteStartElement ("prev");
+					writer.WriteString ((photo_index).ToString());
+					writer.WriteEndElement ();
+				}
+
+				if (photo_index < selection.Count - 1) {
+					writer.WriteStartElement ("next");
+					writer.WriteString ((photo_index + 2).ToString ());
+					writer.WriteEndElement ();
+				}
+				
+				// Stylesheets should be generated from a .theme (resource) file
+				writer.WriteStartElement ("stylesheets");
+				
+				writer.WriteStartElement ("stylesheet");
+				writer.WriteAttributeString ("href", "album.css");
+				writer.WriteEndElement ();
+				
+				writer.WriteStartElement ("stylesheet");
+				writer.WriteAttributeString ("href", "dark.css");
+				writer.WriteEndElement ();
+				
+				writer.WriteEndElement ();
+				
+				writer.WriteEndElement ();
+				writer.WriteEndDocument ();
+				writer.Flush ();
+				writer.BaseStream.Seek (0, SeekOrigin.Begin);
+
+				input = new System.Xml.XPath.XPathDocument (writer.BaseStream);
+				outputStream = new System.IO.FileStream (destBasePath.GetChild ("img"+(photo_index + 1)+".html").Path, System.IO.FileMode.Create);
+
+				transform.Transform (input, argumentList, outputStream);
+				outputStream.Close ();
+			}
+		}
+
+		private void ExportCSSFile (GLib.File destBasePath, System.Reflection.Assembly assembly, string local, string resource)
+		{
+			System.IO.Stream albumStream = new System.IO.FileStream (destBasePath.GetChild (local).Path, System.IO.FileMode.Create);
+			System.IO.StreamWriter albumWriteStream = new System.IO.StreamWriter (albumStream);
+			System.IO.StreamReader albumReadStream = new System.IO.StreamReader (assembly.GetManifestResourceStream (resource));
+			albumWriteStream.Write (albumReadStream.ReadToEnd ());
+			albumWriteStream.Close ();
+		}
+
+		private void ExportPhotos(GLib.File destBasePath)
+		{
 			List<ImageSize> imageSizes = new List<ImageSize> ();
 			if (export_properties.RestrictHQSize) {
 				imageSizes.Add (new ImageSize (export_properties.HQSize, "hq"));
@@ -137,7 +314,7 @@ namespace FSpot.Exporters.Album {
 				imageSizes.Add (new ImageSize (0, "hq"));
 			}
 			imageSizes.Add (new ImageSize (1024, "mq"));
-			imageSizes.Add (new ImageSize (300,  "thumbs"));
+			imageSizes.Add (new ImageSize (280,  "thumbs"));
 
 			foreach (ImageSize size in imageSizes) {
 				GLib.File sizePath = destBasePath.GetChild(size.Path);
