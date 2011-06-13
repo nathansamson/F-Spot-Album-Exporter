@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="2.24"/>
   <object class="GtkDialog" id="exportDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -70,7 +70,7 @@
                     <property name="can_focus">False</property>
                     <property name="n_rows">3</property>
                     <property name="n_columns">2</property>
-                    <property name="column_spacing">4</property>
+                    <property name="column_spacing">5</property>
                     <property name="row_spacing">4</property>
                     <child>
                       <object class="GtkFileChooserButton" id="exportDirectoryChooserButton">
@@ -81,6 +81,7 @@
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
+                        <property name="y_options">GTK_FILL</property>
                       </packing>
                     </child>
                     <child>
@@ -92,6 +93,7 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">1</property>
+                        <property name="y_options">GTK_FILL</property>
                       </packing>
                     </child>
                     <child>
@@ -185,7 +187,6 @@
                   <object class="GtkAlignment" id="alignment1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="left_padding">12</property>
                     <child>
                       <object class="GtkHBox" id="hbox1">
                         <property name="visible">True</property>
@@ -202,7 +203,7 @@
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -216,7 +217,7 @@
                             <property name="adjustment">scaleSizeAdjustment</property>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
@@ -228,7 +229,7 @@
                             <property name="label" translatable="yes">pixels</property>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">2</property>
                           </packing>
@@ -247,7 +248,7 @@
                 </child>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
@@ -271,5 +272,13 @@
     <property name="value">1920</property>
     <property name="step_increment">100</property>
     <property name="page_increment">10</property>
+  </object>
+  <object class="GtkSizeGroup" id="labelSizeGroup">
+    <widgets>
+      <widget name="restrictMaxSizeCheckButton"/>
+      <widget name="label3"/>
+      <widget name="label2"/>
+      <widget name="label6"/>
+    </widgets>
   </object>
 </interface>
