@@ -104,6 +104,15 @@ namespace FSpot.Exporters.Album {
 			this.selection = selection;
 		
 			GtkBeans.Builder builder = new GtkBeans.Builder (null, "album_exporter.ui", null);
+			Gtk.Entry albumTitleEntry = new Gtk.Entry (builder.GetRawObject ("albumTitleEntry"));
+			Gtk.TextView albumDescriptionTextView = new Gtk.TextView (builder.GetRawObject ("albumDescriptionTextView"));
+			Gtk.FileChooserButton exportFileChooserButton = new Gtk.FileChooserButton (builder.GetRawObject ("exportDirectoryChooserButton"));
+			Gtk.CheckButton restrictMaxSizeCheckButton = new Gtk.CheckButton (builder.GetRawObject ("restrictMaxSizeCheckButton"));
+			Gtk.SpinButton hqSizeSpinButton = new Gtk.SpinButton (builder.GetRawObject ("hqMaxSizeSpinButton"));
+			restrictMaxSizeCheckButton.Toggled += delegate(object sender, EventArgs e) {
+				hqSizeSpinButton.Sensitive = restrictMaxSizeCheckButton.Active;
+			};
+
 			dialog = new Gtk.Dialog (builder.GetRawObject ("exportDialog"));
 			dialog.ShowAll();
 			int response = dialog.Run();
@@ -114,13 +123,8 @@ namespace FSpot.Exporters.Album {
 			
 			dialog.Hide();
 
-			Gtk.Entry albumTitleEntry = new Gtk.Entry (builder.GetRawObject ("albumTitleEntry"));
-			Gtk.TextView albumDescriptionTextView = new Gtk.TextView (builder.GetRawObject ("albumDescriptionTextView"));
-			Gtk.FileChooserButton exportFileChooserButton = new Gtk.FileChooserButton (builder.GetRawObject ("exportDirectoryChooserButton"));
-			Gtk.CheckButton restrictMaxSizeCheckButton = new Gtk.CheckButton (builder.GetRawObject ("restrictMaxSizeCheckButton"));
 			uint hqMaxSize = 0;
 			if (restrictMaxSizeCheckButton.Active) {
-				Gtk.SpinButton hqSizeSpinButton = new Gtk.SpinButton (builder.GetRawObject ("hqMaxSizeSpinButton"));
 				hqMaxSize = (uint)hqSizeSpinButton.ValueAsInt;
 			}
 
