@@ -9,8 +9,10 @@ RESOURCES =  \
 	Resources/album_exporter.ui \
 	Resources/AlbumExport.addin.xml \
 	Resources/DefaultTheme/album.css,DefaultTheme.album.css \
+	Resources/DefaultTheme/album.js \
 	Resources/DefaultTheme/dark.css,DefaultTheme.dark.css \
 	Resources/DefaultTheme/index.xsl,DefaultTheme.index.xsl \
+	Resources/DefaultTheme/light.css,DefaultTheme.light.css \
 	Resources/DefaultTheme/page.xsl,DefaultTheme.page.xsl
 
 include $(top_srcdir)/build/build.mk

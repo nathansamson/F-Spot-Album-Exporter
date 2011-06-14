@@ -174,6 +174,7 @@ namespace FSpot.Exporters.Album {
 			// Stylesheets should be generated from a .theme (resource) file
 			ExportCSSFile (destBasePath, assembly, "album.css", "DefaultTheme.album.css");
 			ExportCSSFile (destBasePath, assembly, "dark.css", "DefaultTheme.dark.css");
+			ExportCSSFile (destBasePath, assembly, "light.css", "DefaultTheme.light.css");
 			writer.WriteStartElement ("stylesheets");
 
 			writer.WriteStartElement ("stylesheet");
@@ -182,6 +183,12 @@ namespace FSpot.Exporters.Album {
 
 			writer.WriteStartElement ("stylesheet");
 			writer.WriteAttributeString ("href", "dark.css");
+			writer.WriteEndElement ();
+
+			writer.WriteStartElement ("stylesheet");
+			writer.WriteAttributeString ("href", "light.css");
+			writer.WriteAttributeString ("alternate", "alternate");
+			writer.WriteAttributeString ("title", "Light");
 			writer.WriteEndElement ();
 
 			writer.WriteEndElement ();
@@ -283,6 +290,12 @@ namespace FSpot.Exporters.Album {
 				
 				writer.WriteStartElement ("stylesheet");
 				writer.WriteAttributeString ("href", "dark.css");
+				writer.WriteEndElement ();
+
+				writer.WriteStartElement ("stylesheet");
+				writer.WriteAttributeString ("href", "light.css");
+				writer.WriteAttributeString ("alternate", "alternate");
+				writer.WriteAttributeString ("title", "Light");
 				writer.WriteEndElement ();
 				
 				writer.WriteEndElement ();

@@ -103,6 +103,12 @@
     <EmbeddedResource Include="Resources\DefaultTheme\page.xsl">
       <LogicalName>DefaultTheme.page.xsl</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DefaultTheme\light.css">
+      <LogicalName>DefaultTheme.light.css</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DefaultTheme\album.js">
+      <LogicalName>album.js</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\DefaultTheme\" />
