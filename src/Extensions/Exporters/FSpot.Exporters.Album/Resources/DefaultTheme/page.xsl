@@ -30,7 +30,7 @@
 			</head>
 			<body>
 				<header>
-					<h1><xsl:value-of select="/fspot-image/fspot-album/title" /></h1>
+					<h1><a href="index.html"><xsl:value-of select="/fspot-image/fspot-album/title" /></a></h1>
 					<p><xsl:value-of select="/fspot-image/description" /></p>
 				</header>
 				<nav>
@@ -38,7 +38,7 @@
 						<xsl:if test="/fspot-image/prev">
 							<li class="prev"><a href="img{/fspot-image/prev}.html">Previous</a></li>
 						</xsl:if>
-						<li class="index"><a href="index.html">Index</a></li>
+						<li class="placeholder"></li>
 						<xsl:if test="/fspot-image/next">
 							<li class="next"><a href="img{/fspot-image/next}.html">Next</a></li>
 						</xsl:if>
@@ -51,7 +51,7 @@
 				</section>
 				<footer>
 					<xsl:value-of select="$createdByText" /><xsl:text> </xsl:text>
-					<a href="http://f-spot.org">
+					<a href="http://f-spot.org" target="_blank">
 						<xsl:value-of select="$createdByPackage" /><xsl:text> </xsl:text>
 						<xsl:value-of select="$createdByVersion" />
 					</a>

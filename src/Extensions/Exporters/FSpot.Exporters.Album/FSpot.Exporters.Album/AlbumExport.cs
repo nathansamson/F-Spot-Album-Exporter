@@ -317,7 +317,7 @@ namespace FSpot.Exporters.Album {
 			} else {
 				imageSizes.Add (new ImageSize (0, "hq"));
 			}
-			imageSizes.Add (new ImageSize (1024, "mq"));
+			imageSizes.Add (new ImageSize (920, "mq"));
 			imageSizes.Add (new ImageSize (280,  "thumbs"));
 
 			foreach (ImageSize size in imageSizes) {

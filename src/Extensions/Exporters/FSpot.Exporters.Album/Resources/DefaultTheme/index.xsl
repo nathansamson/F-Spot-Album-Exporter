@@ -30,7 +30,7 @@
 			</head>
 			<body>
 				<header>
-					<h1><xsl:value-of select="/fspot-album/title" /></h1>
+					<h1><a href="index.html"><xsl:value-of select="/fspot-album/title" /></a></h1>
 					<p><xsl:value-of select="/fspot-album/description" /></p>
 				</header>
 				<section class="photolist">
@@ -44,7 +44,7 @@
 				</section>
 				<footer>
 					<xsl:value-of select="$createdByText" /><xsl:text> </xsl:text>
-					<a href="http://f-spot.org">
+					<a href="http://f-spot.org" target="_blank">
 						<xsl:value-of select="$createdByPackage" /><xsl:text> </xsl:text>
 						<xsl:value-of select="$createdByVersion" />
 					</a>

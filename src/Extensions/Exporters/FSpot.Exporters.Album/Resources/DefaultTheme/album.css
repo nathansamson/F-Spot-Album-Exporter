@@ -25,6 +25,10 @@ body > header h1 {
 	margin: 0.5em 0 0.2em 0;
 }
 
+body > header h1 a {
+	text-decoration: none;
+}
+
 nav ol {
 	margin: 1em 0;
 	padding: 0;
@@ -38,15 +42,41 @@ nav ol li {
 	margin: 0 1em;
 }
 
+nav ol li.placeholder {
+	display: inline-block;
+	border: none;
+	margin: 0;
+	width: 0;
+	padding: 0;
+}
+
 nav ol li:first-child {
 	margin-left: 0;
 }
 
+nav ol li:last-child {
+	margin-right: 0;
+}
+
+
 nav ol li a {
+	text-align: center;
 	display: block;
 	text-decoration: none;
 	
 	padding: 0.25em 1em;
+	min-width: 5em; /* If in some languages the text is longer it will still look quite good */
+}
+
+nav ol {
+	position: relative;
+}
+
+
+nav ol li.next {
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 .photolist article {
@@ -81,6 +111,16 @@ nav ol li a {
 
 .photolist article:nth-child(3n + 3) {
 	margin: 10px 0 10px 15px;
+}
+
+.photo {
+	text-align: center;
+}
+
+.photo img {
+	border: solid 1px transparent;
+	padding: 20px;
+	border-radius: 10px;
 }
 
 footer {

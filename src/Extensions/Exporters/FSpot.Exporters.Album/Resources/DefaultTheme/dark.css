@@ -24,6 +24,11 @@ nav ol li:hover {
 	background-color: #222222;
 }
 
+.photo img {
+	background-color: #282828;
+	border-color: #BBBBBB;
+}
+
 a {
 	color: #BBBBBB;
 }
