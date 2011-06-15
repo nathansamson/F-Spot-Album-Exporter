@@ -17,13 +17,21 @@
 				<meta encoding="utf-8" />
 				<title><xsl:value-of select="/fspot-album/title" /></title>
 				
+				<xsl:for-each select="/fspot-album/scripts/script">
+					<script src="{@src}">
+						<xsl:text> </xsl:text>
+					</script>
+				</xsl:for-each>
+				
 				<xsl:for-each select="/fspot-album/stylesheets/stylesheet">
 					<xsl:choose>
-						<xsl:when test="@alternate=alternate">
-							<link rel="alternate stylesheet" href="@href" title="@title" />
+						<xsl:when test="@alternate = 'alternate'">
+							<link rel="alternate stylesheet" href="{@href}" title="{@title}" />
 						</xsl:when>
 						<xsl:otherwise>
-							<link rel="stylesheet" href="{@href}" />
+							<link rel="stylesheet" href="{@href}">
+								<xsl:copy-of select="@title" />
+							</link>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:for-each>

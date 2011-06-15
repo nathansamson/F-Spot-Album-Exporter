@@ -36,3 +36,11 @@ a {
 a:hover {
 	color: #DDDDDD;
 }
+
+#styleselector ol {
+	background-color: #282828;
+}
+
+#styleselector ol li:hover {
+	background-color: #222222;
+}

@@ -171,10 +171,24 @@ namespace FSpot.Exporters.Album {
 			writer.WriteString (export_properties.Description);
 			writer.WriteEndElement ();
 
+			ExportResourceFile (destBasePath, assembly, "album.js", "DefaultTheme.album.js");
+
+			writer.WriteStartElement ("scripts");
+
+			writer.WriteStartElement ("script");
+			writer.WriteAttributeString ("src", "https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js");
+			writer.WriteEndElement ();
+
+			writer.WriteStartElement ("script");
+			writer.WriteAttributeString ("src", "album.js");
+			writer.WriteEndElement ();
+
+			writer.WriteEndElement ();
+
 			// Stylesheets should be generated from a .theme (resource) file
-			ExportCSSFile (destBasePath, assembly, "album.css", "DefaultTheme.album.css");
-			ExportCSSFile (destBasePath, assembly, "dark.css", "DefaultTheme.dark.css");
-			ExportCSSFile (destBasePath, assembly, "light.css", "DefaultTheme.light.css");
+			ExportResourceFile (destBasePath, assembly, "album.css", "DefaultTheme.album.css");
+			ExportResourceFile (destBasePath, assembly, "dark.css", "DefaultTheme.dark.css");
+			ExportResourceFile (destBasePath, assembly, "light.css", "DefaultTheme.light.css");
 			writer.WriteStartElement ("stylesheets");
 
 			writer.WriteStartElement ("stylesheet");
@@ -183,6 +197,7 @@ namespace FSpot.Exporters.Album {
 
 			writer.WriteStartElement ("stylesheet");
 			writer.WriteAttributeString ("href", "dark.css");
+			writer.WriteAttributeString ("title", "Dark");
 			writer.WriteEndElement ();
 
 			writer.WriteStartElement ("stylesheet");
@@ -280,6 +295,19 @@ namespace FSpot.Exporters.Album {
 					writer.WriteString ((photo_index + 2).ToString ());
 					writer.WriteEndElement ();
 				}
+
+				writer.WriteStartElement ("scripts");
+
+				writer.WriteStartElement ("script");
+				writer.WriteAttributeString ("src", "https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js");
+				writer.WriteEndElement ();
+				
+				writer.WriteStartElement ("script");
+				writer.WriteAttributeString ("src", "album.js");
+				writer.WriteEndElement ();
+				
+				writer.WriteEndElement ();
+
 				
 				// Stylesheets should be generated from a .theme (resource) file
 				writer.WriteStartElement ("stylesheets");
@@ -290,6 +318,7 @@ namespace FSpot.Exporters.Album {
 				
 				writer.WriteStartElement ("stylesheet");
 				writer.WriteAttributeString ("href", "dark.css");
+				writer.WriteAttributeString ("title", "Dark");
 				writer.WriteEndElement ();
 
 				writer.WriteStartElement ("stylesheet");
@@ -313,7 +342,7 @@ namespace FSpot.Exporters.Album {
 			}
 		}
 
-		private void ExportCSSFile (GLib.File destBasePath, System.Reflection.Assembly assembly, string local, string resource)
+		private void ExportResourceFile (GLib.File destBasePath, System.Reflection.Assembly assembly, string local, string resource)
 		{
 			System.IO.Stream albumStream = new System.IO.FileStream (destBasePath.GetChild (local).Path, System.IO.FileMode.Create);
 			System.IO.StreamWriter albumWriteStream = new System.IO.StreamWriter (albumStream);

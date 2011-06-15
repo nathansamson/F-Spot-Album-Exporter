@@ -107,7 +107,7 @@
       <LogicalName>DefaultTheme.light.css</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\DefaultTheme\album.js">
-      <LogicalName>album.js</LogicalName>
+      <LogicalName>DefaultTheme.album.js</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
