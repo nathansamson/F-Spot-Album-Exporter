@@ -39,19 +39,21 @@
 			<body>
 				<header>
 					<h1><a href="index.html"><xsl:value-of select="/fspot-image/fspot-album/title" /></a></h1>
-					<p><xsl:value-of select="/fspot-image/description" /></p>
+					<nav>
+						<ol>
+							<xsl:if test="/fspot-image/prev">
+								<li class="prev"><a href="img{/fspot-image/prev}.html">Previous</a></li>
+							</xsl:if>
+							<li class="placeholder"></li>
+							<xsl:if test="/fspot-image/next">
+								<li class="next"><a href="img{/fspot-image/next}.html">Next</a></li>
+							</xsl:if>
+						</ol>
+					</nav>
+					<xsl:if test="string-length (/fspot-image/description)">
+						<p><xsl:value-of select="/fspot-image/description" /></p>
+					</xsl:if>
 				</header>
-				<nav>
-					<ol>
-						<xsl:if test="/fspot-image/prev">
-							<li class="prev"><a href="img{/fspot-image/prev}.html">Previous</a></li>
-						</xsl:if>
-						<li class="placeholder"></li>
-						<xsl:if test="/fspot-image/next">
-							<li class="next"><a href="img{/fspot-image/next}.html">Next</a></li>
-						</xsl:if>
-					</ol>
-				</nav>
 				<section class="photo">
 					<a href="hq/{/fspot-image/filename}" target="_blank">
 						<img src="mq/{/fspot-image/filename}" />

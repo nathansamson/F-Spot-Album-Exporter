@@ -39,7 +39,9 @@
 			<body>
 				<header>
 					<h1><a href="index.html"><xsl:value-of select="/fspot-album/title" /></a></h1>
-					<p><xsl:value-of select="/fspot-album/description" /></p>
+					<xsl:if test="string-length (/fspot-album/description)">
+						<p><xsl:value-of select="/fspot-album/description" /></p>
+					</xsl:if>
 				</header>
 				<section class="photolist">
 					<xsl:for-each select="/fspot-album/photos/photo">
