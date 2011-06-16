@@ -115,6 +115,7 @@ namespace FSpot.Exporters.Album {
 
 			dialog = new Gtk.Dialog (builder.GetRawObject ("exportDialog"));
 			dialog.ShowAll();
+			dialog.TransientFor = FSpot.App.Instance.Organizer.Window;
 			int response = dialog.Run();
 			if (response != (int)Gtk.ResponseType.Ok) {
 				dialog.Hide();
