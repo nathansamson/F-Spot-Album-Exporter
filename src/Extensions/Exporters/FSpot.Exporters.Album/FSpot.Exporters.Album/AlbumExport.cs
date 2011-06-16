@@ -40,8 +40,15 @@ using FSpot.UI.Dialog;
 namespace FSpot.Exporters.Album {
 	public class AlbumExport : FSpot.Extensions.IExporter {
 		IBrowsableCollection selection;
-	
-		[GtkBeans.Builder.Object] Gtk.Dialog dialog;
+
+		GtkBeans.Builder builder;
+		Gtk.Dialog dialog;
+		Gtk.Entry albumTitleEntry;
+		Gtk.TextView albumDescriptionTextView;
+		Gtk.FileChooserButton exportFileChooserButton;
+		Gtk.CheckButton restrictMaxSizeCheckButton;
+		Gtk.SpinButton hqSizeSpinButton;
+
 		ThreadProgressDialog progress_dialog;
 		
 		internal struct ExportProperties {
@@ -103,12 +110,12 @@ namespace FSpot.Exporters.Album {
 		{
 			this.selection = selection;
 		
-			GtkBeans.Builder builder = new GtkBeans.Builder (null, "album_exporter.ui", null);
-			Gtk.Entry albumTitleEntry = new Gtk.Entry (builder.GetRawObject ("albumTitleEntry"));
-			Gtk.TextView albumDescriptionTextView = new Gtk.TextView (builder.GetRawObject ("albumDescriptionTextView"));
-			Gtk.FileChooserButton exportFileChooserButton = new Gtk.FileChooserButton (builder.GetRawObject ("exportDirectoryChooserButton"));
-			Gtk.CheckButton restrictMaxSizeCheckButton = new Gtk.CheckButton (builder.GetRawObject ("restrictMaxSizeCheckButton"));
-			Gtk.SpinButton hqSizeSpinButton = new Gtk.SpinButton (builder.GetRawObject ("hqMaxSizeSpinButton"));
+			builder = new GtkBeans.Builder (null, "album_exporter.ui", null);
+			albumTitleEntry = new Gtk.Entry (builder.GetRawObject ("albumTitleEntry"));
+			albumDescriptionTextView = new Gtk.TextView (builder.GetRawObject ("albumDescriptionTextView"));
+			exportFileChooserButton = new Gtk.FileChooserButton (builder.GetRawObject ("exportDirectoryChooserButton"));
+			restrictMaxSizeCheckButton = new Gtk.CheckButton (builder.GetRawObject ("restrictMaxSizeCheckButton"));
+			hqSizeSpinButton = new Gtk.SpinButton (builder.GetRawObject ("hqMaxSizeSpinButton"));
 			restrictMaxSizeCheckButton.Toggled += delegate(object sender, EventArgs e) {
 				hqSizeSpinButton.Sensitive = restrictMaxSizeCheckButton.Active;
 			};
@@ -116,13 +123,9 @@ namespace FSpot.Exporters.Album {
 			dialog = new Gtk.Dialog (builder.GetRawObject ("exportDialog"));
 			dialog.ShowAll();
 			dialog.TransientFor = FSpot.App.Instance.Organizer.Window;
-			int response = dialog.Run();
-			if (response != (int)Gtk.ResponseType.Ok) {
-				dialog.Hide();
+			if (! RunExportSettingsDialog ()) {
 				return;
 			}
-			
-			dialog.Hide();
 
 			uint hqMaxSize = 0;
 			if (restrictMaxSizeCheckButton.Active) {
@@ -139,6 +142,31 @@ namespace FSpot.Exporters.Album {
 
 			progress_dialog = new ThreadProgressDialog (command_thread, 1);
 			progress_dialog.Start ();
+		}
+
+		private bool RunExportSettingsDialog ()
+		{
+			bool validated = false;
+			while (! validated) {
+				int response = dialog.Run ();
+
+				if (response == (int)Gtk.ResponseType.Ok) {
+					validated = true;
+					if (albumTitleEntry.Text.Trim ().Length == 0) {
+						validated = false;
+						// TODO: Use InfoBar (Gtk+ 3) to display the error.
+						Gtk.MessageDialog errorMessage = new Gtk.MessageDialog (dialog, DialogFlags.Modal, MessageType.Error,
+						                                                        ButtonsType.Ok, "You should anter a Title.");
+						errorMessage.Run ();
+						errorMessage.Destroy ();
+					}
+				} else {
+					dialog.Hide ();
+					return false;
+				}
+			}
+			dialog.Hide ();
+			return true;
 		}
 		
 		private void Export()
