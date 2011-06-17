@@ -105,6 +105,11 @@ namespace FSpot.Exporters.Album {
 		}
 		
 		ExportProperties export_properties;
+
+		public const string EXPORT_SERVICE = "album/";
+		public const string SCALE_KEY = Preferences.APP_FSPOT_EXPORT + EXPORT_SERVICE + "scale";
+		public const string SIZE_KEY = Preferences.APP_FSPOT_EXPORT + EXPORT_SERVICE + "size";
+		public const string URI_KEY = Preferences.APP_FSPOT_EXPORT + EXPORT_SERVICE + "uri";
 	
 		public void Run(IBrowsableCollection selection)
 		{
@@ -146,6 +151,7 @@ namespace FSpot.Exporters.Album {
 
 		private bool RunExportSettingsDialog ()
 		{
+			LoadPreferences ();
 			bool validated = false;
 			while (! validated) {
 				int response = dialog.Run ();
@@ -162,10 +168,12 @@ namespace FSpot.Exporters.Album {
 					}
 				} else {
 					dialog.Hide ();
+					SavePreferences ();
 					return false;
 				}
 			}
 			dialog.Hide ();
+			SavePreferences ();
 			return true;
 		}
 		
@@ -421,6 +429,29 @@ namespace FSpot.Exporters.Album {
 				progress_dialog.Fraction = (photo_index + 1) / (double) selection.Count;
 			}
 			progress_dialog.Hide();
+		}
+
+		private void LoadPreferences ()
+		{
+			exportFileChooserButton.SetUri (GetPreference<string> (URI_KEY, ""));
+			restrictMaxSizeCheckButton.Active = GetPreference<bool> (SCALE_KEY, true);
+			hqSizeSpinButton.Value = GetPreference<int> (SIZE_KEY, 1920);
+		}
+
+		private void SavePreferences ()
+		{
+			Preferences.Set (URI_KEY, exportFileChooserButton.Uri);
+			Preferences.Set (SCALE_KEY, restrictMaxSizeCheckButton.Active);
+			Preferences.Set (SIZE_KEY, hqSizeSpinButton.ValueAsInt);
+		}
+
+		private T GetPreference<T> (string key, T defaultValue)
+		{
+			T value;
+			if (Preferences.TryGet<T> (key, out value))
+				return value;
+			else
+				return defaultValue;
 		}
 	}
 }
